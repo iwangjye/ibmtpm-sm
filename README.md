@@ -1,2 +1,2 @@
 # swtpm
-forked from ibmswtpm and changed for use in qemu
+forked from ibmtpm and add sm algorithm
