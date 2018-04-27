@@ -74,10 +74,11 @@
 #include <openssl/des.h>
 #include <openssl/bn.h>
 #include <openssl/ossl_typ.h>
+#include "CryptSm4.h"
 /* B.2.2.3.2. Links to the OpenSSL AES code */
-#ifdef TPM_ALG_SM4
+/*#ifdef TPM_ALG_SM4
 #error "SM4 is not available"
-#endif
+#endif*/
 #ifdef  TPM_ALG_CAMELLIA
 #error "Camellia is not available"
 #endif
@@ -101,6 +102,11 @@ typedef void(*TpmCryptSetSymKeyCall_t)(
     AES_set_encrypt_key((key), (keySizeInBits), (tpmKeyScheduleAES *)(schedule))
 #define TpmCryptSetDecryptKeyAES(key, keySizeInBits, schedule)		\
     AES_set_decrypt_key((key), (keySizeInBits), (tpmKeyScheduleAES *)(schedule))
+/* SM4: */
+#define TpmCryptSetEncryptKeySM4(key, keySizeInBits, schedule)    \
+    SM4_set_encrypt_key((key), (keySizeInBits), (tpmKeyScheduleSM4 *)(schedule))
+#define TpmCryptSetDecryptKeySM4(key, keySizeInBits, schedule)    \
+    SM4_set_decrypt_key((key), (keySizeInBits), (tpmKeyScheduleSM4 *)(schedule))
 /*       TDES: */
 #define TpmCryptSetEncryptKeyTDES(key, keySizeInBits, schedule)		\
     TDES_set_encrypt_key((key), (keySizeInBits), (tpmKeyScheduleTDES *)(schedule))
@@ -113,6 +119,9 @@ typedef void(*TpmCryptSetSymKeyCall_t)(
 #define TpmCryptEncryptAES          AES_encrypt
 #define TpmCryptDecryptAES          AES_decrypt
 #define tpmKeyScheduleAES           AES_KEY
+#define TpmCryptEncryptSM4          SM4_encrypt
+#define TpmCryptDecryptSM4          SM4_decrypt
+#define tpmKeyScheduleSM4           SM4_KEY
 #define TpmCryptEncryptTDES         TDES_encrypt
 #define TpmCryptDecryptTDES         TDES_decrypt
 #define tpmKeyScheduleTDES          DES_key_schedule

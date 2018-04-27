@@ -47,6 +47,9 @@ CCFLAGS += -DNO_BIT_FIELD_STRUCTURES
 # CCFLAGS += -DBIG_ENDIAN_TPM=YES 
 
 HEADERS = 				\
+	byteorder.h		\
+	CryptSm3.h     \
+	CryptSm4.h		\
 	ActivateCredential_fp.h		\
 	AlgorithmCap_fp.h		\
 	AlgorithmTests_fp.h		\
@@ -270,6 +273,8 @@ HEADERS = 				\
 	ntc2_fp.h
 
 OBJFILES = \
+	CryptSm3.o			\
+	CryptSm4.o			\
 	AlgorithmCap.o			\
 	AlgorithmTests.o		\
 	AsymmetricCommands.o		\
@@ -371,6 +376,8 @@ OBJFILES = \
 	ntc2lib.o			\
 	ntc2.o
 
+CryptSm3.o			: $(HEADERS)
+CryptSm4.o			: $(HEADERS)
 AlgorithmCap.o			: $(HEADERS)
 AlgorithmTests.o		: $(HEADERS)
 AsymmetricCommands.o		: $(HEADERS)

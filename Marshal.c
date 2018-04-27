@@ -1137,6 +1137,16 @@ TPMI_AES_KEY_BITS_Marshal(TPMI_AES_KEY_BITS *source, BYTE **buffer, INT32 *size)
     return written;
 }
 
+/* Table 2:127 - Definition of TPMI_SM4_KEY_BITS Type (InterfaceTable()) */
+
+UINT16
+TPMI_SM4_KEY_BITS_Marshal(TPMI_SM4_KEY_BITS *source, BYTE **buffer, INT32 *size)
+{
+    UINT16 written = 0;
+    written += TPM_KEY_BITS_Marshal(source, buffer, size);
+    return written;
+}
+
 /* Table 2:128 - Definition of TPMU_SYM_KEY_BITS Union (StructuresTable()) */
 
 UINT16
@@ -1340,6 +1350,13 @@ TPMS_SIG_SCHEME_RSAPSS_Marshal(TPMS_SIG_SCHEME_RSAPSS *source, BYTE **buffer, IN
 
 UINT16
 TPMS_SIG_SCHEME_ECDSA_Marshal(TPMS_SIG_SCHEME_ECDSA *source, BYTE **buffer, INT32 *size)
+{
+    UINT16 written = 0;
+    written += TPMS_SCHEME_HASH_Marshal(source, buffer, size);
+    return written;
+}
+UINT16
+TPMS_SIG_SCHEME_SM2_Marshal(TPMS_SIG_SCHEME_SM2 *source, BYTE **buffer, INT32 *size)
 {
     UINT16 written = 0;
     written += TPMS_SCHEME_HASH_Marshal(source, buffer, size);
@@ -1760,7 +1777,15 @@ TPMS_SIGNATURE_ECDSA_Marshal(TPMS_SIGNATURE_ECDSA *source, BYTE **buffer, INT32 
     UINT16 written = 0;
     written += TPMS_SIGNATURE_ECC_Marshal(source, buffer, size);
     return written;
-}	
+}
+
+UINT16
+TPMS_SIGNATURE_SM2_Marshal(TPMS_SIGNATURE_ECDSA *source, BYTE **buffer, INT32 *size)
+{
+    UINT16 written = 0;
+    written += TPMS_SIGNATURE_ECC_Marshal(source, buffer, size);
+    return written;
+}
 
 UINT16
 TPMS_SIGNATURE_ECDAA_Marshal(TPMS_SIGNATURE_ECDAA *source, BYTE **buffer, INT32 *size)

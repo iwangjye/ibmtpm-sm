@@ -402,7 +402,8 @@ BnSignEcSm2(
 	    //     debug)
 	    )
 {
-    BN_MAX_INITIALIZED(bnE, digest);   // Don't know how big digest might be
+    BN_VAR(bnE, MAX_DIGEST_SIZE * 8);
+    // BN_MAX_INITIALIZED(bnE, digest);   // Don't know how big digest might be
     ECC_NUM(bnN);
     ECC_NUM(bnK);
     ECC_NUM(bnX1);
@@ -411,6 +412,9 @@ BnSignEcSm2(
     bigConst                  order = (E != NULL)
 				      ? CurveGetOrder(AccessCurveData(E)) : NULL;
     //
+
+    EcdsaDigest(bnE, digest, order);
+
 #ifdef _SM2_SIGN_DEBUG
     BnFromHex(bnE,
 	      "B524F552CD82B8B028476E005C377FB19A87E6FC682D48BB5D42E3D9B9EFFE76");
@@ -430,7 +434,8 @@ BnSignEcSm2(
 	// A4: Figure out the point of elliptic curve (x1, y1)=[k]G, and according
 	// to details specified in 4.2.7 in Part 1 of this document, transform the
 	// data type of x1 into an integer;
-	if(BnEccModMult(Q1, NULL, bnK, E) != TPM_RC_SUCCESS)
+	// if(BnEccModMult(Q1, NULL, bnK, E) != TPM_RC_SUCCESS)
+    if(BnEccModMult(Q1, NULL, bnK, E) != 1)
 	    goto loop;
 	// A5: Figure out r = (e + x1) mod n,
 	BnAdd(bnR, bnE, bnX1);

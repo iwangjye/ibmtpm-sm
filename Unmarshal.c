@@ -2449,31 +2449,31 @@ TPMI_AES_KEY_BITS_Unmarshal(TPMI_AES_KEY_BITS *target, BYTE **buffer, INT32 *siz
     return rc;
 }
 #endif
- 
-#ifdef TPM_ALG_CAMELLIA
+
+#ifdef TPM_ALG_SM4
 TPM_RC
-TPMI_CAMELLIA_KEY_BITS_Unmarshal(TPMI_CAMELLIA_KEY_BITS *target, BYTE **buffer, INT32 *size)
+TPMI_SM4_KEY_BITS_Unmarshal(TPMI_SM4_KEY_BITS *target, BYTE **buffer, INT32 *size)
 {
     TPM_RC rc = TPM_RC_SUCCESS;
 
     if (rc == TPM_RC_SUCCESS) {
-	rc = TPM_KEY_BITS_Unmarshal(target, buffer, size);  
+    rc = TPM_KEY_BITS_Unmarshal(target, buffer, size);  
     }
     if (rc == TPM_RC_SUCCESS) {
-	switch (*target) {
-	  case 128:
-	    break;
-	  default:
-	    rc = TPM_RC_VALUE;
-	}
+    switch (*target) {
+      case 128:
+        break;
+      default:
+        rc = TPM_RC_VALUE;
+    }
     }
     return rc;
 }
 #endif
 
-#ifdef TPM_ALG_SM4
+#ifdef TPM_ALG_CAMELLIA
 TPM_RC
-TPMI_SM4_KEY_BITS_Unmarshal(TPMI_SM4_KEY_BITS *target, BYTE **buffer, INT32 *size)
+TPMI_CAMELLIA_KEY_BITS_Unmarshal(TPMI_CAMELLIA_KEY_BITS *target, BYTE **buffer, INT32 *size)
 {
     TPM_RC rc = TPM_RC_SUCCESS;
 
@@ -3563,6 +3563,9 @@ TPMI_ECC_CURVE_Unmarshal(TPMI_ECC_CURVE *target, BYTE **buffer, INT32 *size)
 #endif
 #ifdef TPM_ECC_NIST_P384
 	  case TPM_ECC_NIST_P384:
+#endif
+#ifdef  TPM_ECC_SM2_P256
+      case TPM_ECC_SM2_P256:
 #endif
 	    break;
 	  default:

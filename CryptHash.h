@@ -61,6 +61,7 @@
 
 #ifndef CRYPTHASH_H
 #define CRYPTHASH_H
+#include "CryptSm3.h"
 
 /* This header contains the hash structure definitions used in the TPM code to define the amount of
    space to be reserved for the hash state. This allows the TPM code to not have to import all of
@@ -118,6 +119,9 @@ typedef union
 #endif
 #ifdef TPM_ALG_SHA256
     tpmHashStateSHA256_t       Sha256;
+#endif
+#ifdef TPM_ALG_SM3_256
+    tpmHashStateSM3_256_t       Sm3_256;
 #endif
 #ifdef TPM_ALG_SHA384
     tpmHashStateSHA384_t       Sha384;

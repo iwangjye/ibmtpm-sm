@@ -78,6 +78,7 @@
    be properly computed when needed. */
 #define tpmHashStateSHA1_t        SHA_CTX
 #define tpmHashStateSHA256_t      SHA256_CTX
+#define tpmHashStateSM3_256_t      SM3_256_CTX
 #define tpmHashStateSHA384_t      SHA512_CTX
 #define tpmHashStateSHA512_t      SHA512_CTX
 #ifdef TPM_ALG_SM3
@@ -162,6 +163,12 @@ typedef const BYTE    *PCBYTE;
 #define tpmHashStateCopy_SHA256     memcpy
 #define tpmHashStateExport_SHA256   memcpy
 #define tpmHashStateImport_SHA256   memcpy
+#define tpmHashStart_SM3_256         SM3_256_Init
+#define tpmHashData_SM3_256          SM3_256_Update
+#define tpmHashEnd_SM3_256           SM3_256_Final
+#define tpmHashStateCopy_SM3_256     memcpy
+#define tpmHashStateExport_SM3_256   memcpy
+#define tpmHashStateImport_SM3_256   memcpy
 #define tpmHashStart_SHA384         SHA384_Init
 #define tpmHashData_SHA384          SHA384_Update
 #define tpmHashEnd_SHA384           SHA384_Final
