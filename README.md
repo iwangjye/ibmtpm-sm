@@ -1,2 +1,2 @@
 # ibmtpm-sm
-forked from ibmtpm and add sm algorithm
+forked from ibmtpm1119 and add sm algorithm
